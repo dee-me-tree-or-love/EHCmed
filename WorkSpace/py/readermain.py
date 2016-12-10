@@ -115,19 +115,20 @@ def run():
     # start cycling
     dataArray = readCycleInto()
     print(str(dataArray))
-    longpar = []
+    longpar = ""
     for block in dataArray:
-        for bb in block:
-            if (bb!= 0):
-                longpar.append(hex(bb)[2:])
+        if (sum(block) != 0):
+            for bb in block:
+                longpar+=(hex(bb)[2:])
 
             # longpar.append(bytes(hex(bb)))
     print(longpar)
-    longpar = longpar[].decode('utf-8')
+    # longpar = longpar.decode('utf-8')
 
     # rrr = ''.join(hex(ord(x))[2:] for x in 'Hello World!')
     # print(rrr)
-    k = bytearray.fromhex(longpar).decode()
+    k = binascii.unhexlify(longpar.lstrip("0"))
     print(k)
+    #k = bytearray.fromhex(longpar).decode()
 # 1,2,3 GOOOOOOOOO!
 run()
