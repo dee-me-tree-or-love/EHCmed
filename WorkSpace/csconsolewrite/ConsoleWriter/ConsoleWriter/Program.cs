@@ -18,7 +18,7 @@ namespace ConsoleWriter
         };
 
         private const byte MSB = 0x00;
-        private const byte LSB = 0x08;
+        private const byte LSB = 0x04; // 4th block for the purpose of testing
 
 
         public static void Main()
@@ -26,10 +26,11 @@ namespace ConsoleWriter
             List<String> Al = new List<string>();
             List<String> V = new List<string>();
             List<String> D = new List<string>();
-            string[] sa = { "#123", "#54", "#12" };
+            List<String> M = new List<string>();
+            string[] sa = { "#123", "#54", "#16","#32", "#32", "#32", "#32" };
             Al.AddRange(sa);
 
-            List<String>[] data = { Al, V, D };
+            List<String>[] data = { Al, V, D, M };
             Patient pat = new Patient(BloodTypes.ABN, data);
 
             byte[] byteData = Writing_AlgService.PrepareData(pat);
@@ -47,30 +48,61 @@ namespace ConsoleWriter
                     return;
                 }
 
-                using (var isoReader = new IsoReader(context, readerName, SCardShareMode.Shared, SCardProtocol.Any, false))
+                try
                 {
-                    var card = new MifareCard(isoReader);
-
-                    var loadKeySuccessful = card.LoadKey(
-                        KeyStructure.NonVolatileMemory,
-                        0x00, // first key slot
-                        new byte[] { 0xD3, 0xF7, 0xD3, 0xF7, 0xD3, 0xF7 } // key
-                    );
-
-                    if (!loadKeySuccessful)
+                    using (var isoReader = new IsoReader(context, readerName, SCardShareMode.Shared, SCardProtocol.Any, false))
                     {
-                        throw new Exception("LOAD KEY failed.");
-                    }
+                        var card = new MifareCard(isoReader);
 
-                    var authSuccessful = card.Authenticate(MSB, LSB, KeyType.KeyA, 0x00);
-                    if (!authSuccessful)
-                    {
-                        throw new Exception("AUTHENTICATE failed.");
-                    }
+                        var loadKeySuccessful = card.LoadKey(
+                            KeyStructure.NonVolatileMemory,
+                            0x00, // first key slot
+                            new byte[] { 0xD3, 0xF7, 0xD3, 0xF7, 0xD3, 0xF7 } // key
+                        );
 
-                    card.UpdateCard(byteData);
-                    Console.ReadLine();
+                        if (!loadKeySuccessful)
+                        {
+                            throw new Exception("LOAD KEY failed.");
+                        }
+                        //alaAPDU = {FF 86 00 00 05 01 00 04 60 00}
+                        var authSuccessful = card.Authenticate(MSB, LSB, KeyType.KeyA, 0x00);
+                        if (!authSuccessful)
+                        {
+                            throw new Exception("AUTHENTICATE failed.");
+                        }
+
+                        //card.UpdateCard(byteData, KeyType.KeyA, 0x00);
+
+                        authSuccessful = card.Authenticate(MSB, 0x0B, KeyType.KeyA, 0x00);
+                        if (!authSuccessful)
+                        {
+                            throw new Exception("AUTHENTICATE failed.");
+                        }
+                        var result = card.ReadBinary(MSB, 0x0B, 16);
+                        Console.WriteLine("Result (before BINARY UPDATE): {0}",
+                            (result != null)
+                                ? BitConverter.ToString(result)
+                                : null);
+
+                        var updateSuccessful = card.UpdateBinary(MSB, 0x0B, DATA_TO_WRITE);
+
+                        if (!updateSuccessful)
+                        {
+                            throw new Exception("UPDATE BINARY failed.");
+                        }
+
+                        result = card.ReadBinary(MSB, 0x0B, 16);
+                        Console.WriteLine("Result (after BINARY UPDATE): {0}",
+                            (result != null)
+                                ? BitConverter.ToString(result)
+                                : null);
+                        Console.ReadLine();
+                    }
+                }catch(Exception e)
+                {
+                    Console.WriteLine("Critical!: error occured: " + e.Message);
                 }
+                
 
 
                 //        var result = card.ReadBinary(MSB, LSB, 16);

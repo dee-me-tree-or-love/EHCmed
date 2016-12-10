@@ -43,13 +43,20 @@ namespace ConsoleWriter
         public List<String> Vacinnes { get; set; }
         public BloodTypes BloodType { get; set; }
         public List<String> Diseases { get; set; }
+        public List<String> Medication { get; set; }
 
+        /// <summary>
+        /// In the data section - first the allergies, then vaccines 
+        /// </summary>
+        /// <param name="BT"></param>
+        /// <param name="Data"></param>
         public Patient(BloodTypes BT, List<String>[] Data)
         {
             this.BloodType = BT;
-            this.Diseases = Data[0];
-            this.Allergies = Data[1];
-            this.Vacinnes = Data[2];
+            this.Allergies = Data[0];
+            this.Vacinnes = Data[1];
+            this.Diseases = Data[2];
+            this.Medication = Data[3];
         }
 
         public override string ToString()
@@ -58,24 +65,30 @@ namespace ConsoleWriter
 
 
             // start with allergies
-            DString += "\\A";
+            DString += ">A";
             foreach (string _identifier in this.Allergies)
             {
                 DString += _identifier;
             }
             // start with vaccines
-            DString += "\\V";
+            DString += ">V";
             foreach (string _identifier in this.Vacinnes)
             {
                 DString += _identifier;
             }
             // start with deseases
-            DString += "\\D";
+            DString += ">D";
             foreach (string _identifier in this.Diseases)
             {
                 DString += _identifier;
             }
-            
+            // start with mdeication
+            DString += ">M";
+            foreach (string _identifier in this.Diseases)
+            {
+                DString += _identifier;
+            }
+            DString += ">";
             return DString;
         }
     }

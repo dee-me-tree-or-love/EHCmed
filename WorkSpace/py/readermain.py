@@ -54,8 +54,13 @@ def readCycleInto():
         #avoid control blocks
         if(c_b == 7):
             print("CONTROL BLOCK ENCOUNTERED")
-        elif(c_b == 13):
+        elif(c_b == 11):
             print("CONTROL BLOCK ENCOUNTERED")
+        elif (c_b == 13):
+            print("CONTROL BLOCK ENCOUNTERED")
+        elif (c_b == 15):
+            print("CONTROL BLOCK ENCOUNTERED")
+
         else:
             #if not falling on the control blocks
             #Authentication
@@ -117,7 +122,7 @@ def run():
     print(str(dataArray))
     longpar = ""
     for block in dataArray:
-        if (sum(block) != 0):
+        if (sum(block) != 77272727272727270):
             for bb in block:
                 longpar+=(hex(bb)[2:])
 
