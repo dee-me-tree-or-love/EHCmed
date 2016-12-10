@@ -107,6 +107,62 @@ namespace ConsoleWriter
             return IsSuccess(response);
         }
 
+
+        public bool UpdateCard(byte[] data)
+        {
+            // would have to store the whole personal record
+            byte[][] _arrayOfArrays = new byte[10][];
+            for (int l = 0; l < 10; l++)
+            {
+                _arrayOfArrays[l] = new byte[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+            }
+
+            int box = 0;
+            int line = 0;
+            foreach (byte b in data)
+            {
+                _arrayOfArrays[line][box] = b;
+                box++;
+                // if reached the end of acceptable byte line
+                if (box == 16)
+                {
+                    // reset the pointer to the first box, go to next line
+                    box = 0;
+                    line++;
+                }
+            }
+
+
+
+            this.writeCyclic(_arrayOfArrays);
+
+            return false;
+        }
+
+
+        private bool writeCyclic(byte[][] DataPack)
+        {
+            int[,] lineToBlockNrMapping = new int[10, 2] 
+                { 
+                    { 0, 4 }, { 1, 5 }, { 2, 6 }, { 3, 8 }, { 4, 9 }, 
+                    { 5, 10 }, { 6, 11 }, { 7, 12 }, { 8, 14 }, { 9, 15 }
+                };
+
+            for (int l = 0; l < 10; l++)
+            {
+                for (int b = 0; b < 16; b++)
+                {
+                    Console.Write("[" + DataPack[l][b] + "]");
+                }
+                Console.WriteLine();
+                // very careful! very fucking careful!
+                this.UpdateBinary(MSB, LSB, DATA_TO_WRITE);
+            }
+            return false;
+        }
+
+
+
         private static bool IsSuccess(Response response) =>
             (response.SW1 == (byte)SW1Code.Normal) && (response.SW2 == 0x00);
     }

@@ -23,6 +23,18 @@ namespace ConsoleWriter
 
         public static void Main()
         {
+            List<String> Al = new List<string>();
+            List<String> V = new List<string>();
+            List<String> D = new List<string>();
+            string[] sa = { "#123", "#54", "#12" };
+            Al.AddRange(sa);
+
+            List<String>[] data = { Al, V, D };
+            Patient pat = new Patient(BloodTypes.ABN, data);
+
+            byte[] byteData = Writing_AlgService.PrepareData(pat);
+
+            Console.ReadLine();
             var contextFactory = ContextFactory.Instance;
             using (var context = contextFactory.Establish(SCardScope.System))
             {
@@ -56,27 +68,33 @@ namespace ConsoleWriter
                         throw new Exception("AUTHENTICATE failed.");
                     }
 
-                    var result = card.ReadBinary(MSB, LSB, 16);
-                    Console.WriteLine("Result (before BINARY UPDATE): {0}",
-                        (result != null)
-                            ? BitConverter.ToString(result)
-                            : null);
-
-                    var updateSuccessful = card.UpdateBinary(MSB, LSB, DATA_TO_WRITE);
-
-                    if (!updateSuccessful)
-                    {
-                        throw new Exception("UPDATE BINARY failed.");
-                    }
-
-                    result = card.ReadBinary(MSB, LSB, 16);
-                    Console.WriteLine("Result (after BINARY UPDATE): {0}",
-                        (result != null)
-                            ? BitConverter.ToString(result)
-                            : null);
+                    card.UpdateCard(byteData);
+                    Console.ReadLine();
                 }
+
+
+                //        var result = card.ReadBinary(MSB, LSB, 16);
+                //        Console.WriteLine("Result (before BINARY UPDATE): {0}",
+                //            (result != null)
+                //                ? BitConverter.ToString(result)
+                //                : null);
+
+                //        var updateSuccessful = card.UpdateBinary(MSB, LSB, DATA_TO_WRITE);
+
+                //        if (!updateSuccessful)
+                //        {
+                //            throw new Exception("UPDATE BINARY failed.");
+                //        }
+
+                //        result = card.ReadBinary(MSB, LSB, 16);
+                //        Console.WriteLine("Result (after BINARY UPDATE): {0}",
+                //            (result != null)
+                //                ? BitConverter.ToString(result)
+                //                : null);
+                //    }
+                //}
+                //Console.ReadKey();
             }
-            Console.ReadKey();
         }
 
         /// <summary>
