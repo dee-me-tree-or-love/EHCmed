@@ -8,3 +8,18 @@ C:\Users\User1\Desktop\New folder\EHCmed\Read_Write_App\Read_Write_App\obj\Debug
 C:\Users\User1\Desktop\New folder\EHCmed\Read_Write_App\Read_Write_App\obj\Debug\Read_Write_App.pdb
 C:\Users\User1\Desktop\New folder\EHCmed\Read_Write_App\Read_Write_App\obj\Debug\Read_Write_App.Main.resources
 C:\Users\User1\Desktop\New folder\EHCmed\Read_Write_App\Read_Write_App\obj\Debug\Read_Write_App.csprojResolveAssemblyReference.cache
+D:\Projects\EHCmed\Read_Write_App\Read_Write_App\bin\Debug\Read_Write_App.exe.config
+D:\Projects\EHCmed\Read_Write_App\Read_Write_App\obj\Debug\Read_Write_App.exe
+D:\Projects\EHCmed\Read_Write_App\Read_Write_App\obj\Debug\Read_Write_App.pdb
+D:\Projects\EHCmed\Read_Write_App\Read_Write_App\bin\Debug\Read_Write_App.exe
+D:\Projects\EHCmed\Read_Write_App\Read_Write_App\bin\Debug\Read_Write_App.pdb
+D:\Projects\EHCmed\Read_Write_App\Read_Write_App\obj\Debug\Read_Write_App.csprojResolveAssemblyReference.cache
+D:\Projects\EHCmed\Read_Write_App\Read_Write_App\obj\Debug\Read_Write_App.Form1.resources
+D:\Projects\EHCmed\Read_Write_App\Read_Write_App\obj\Debug\Read_Write_App.Main.resources
+D:\Projects\EHCmed\Read_Write_App\Read_Write_App\obj\Debug\Read_Write_App.Properties.Resources.resources
+D:\Projects\EHCmed\Read_Write_App\Read_Write_App\obj\Debug\Read_Write_App.csproj.GenerateResource.Cache
+D:\Projects\EHCmed\Read_Write_App\Read_Write_App\obj\Debug\Read_Write_App.MainV2.resources
+D:\Projects\EHCmed\Read_Write_App\Read_Write_App\bin\Debug\ConsoleWriter.exe
+D:\Projects\EHCmed\Read_Write_App\Read_Write_App\bin\Debug\pcsc-sharp.dll
+D:\Projects\EHCmed\Read_Write_App\Read_Write_App\bin\Debug\ConsoleWriter.pdb
+D:\Projects\EHCmed\Read_Write_App\Read_Write_App\bin\Debug\pcsc-sharp.xml

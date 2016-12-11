@@ -185,9 +185,10 @@ namespace ConsoleWriter
             return result;
         }
 
-        public string ReadCard()
+        public byte[] ReadCard(out string longText)
         {
-            
+            longText = "";
+            byte[] barray = { };
             const byte P1 = 0x00; // signifies the P1 block part and is supposed to be zero
             const int mappingIndex = 1; // signifies the second part of a mapping
             // unaccessible blocks - 7th, 11th, 13th, 15th
@@ -211,17 +212,21 @@ namespace ConsoleWriter
                 try
                 {
                     Console.WriteLine(BitConverter.ToString(data));
+                    longText += "-"+BitConverter.ToString(data);
+
+                    Byte[] temp_ba = barray;
+                    barray = new byte[barray.Length + data.Length];
+                    temp_ba.CopyTo(barray, 0);
+                    data.CopyTo(barray, temp_ba.Length);
                 }
                 catch
                 {
                     Console.WriteLine("Couldn't read");
                 }
-                
             }
-
-
-
-            return "";
+            // outside of the loop
+            longText = longText.Substring(1);
+            return barray;
         }
 
 
