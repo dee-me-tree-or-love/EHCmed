@@ -28,3 +28,11 @@ C:\Users\User1\Desktop\New folder\EHCmed\Read_Write_App\Read_Write_App\bin\Debug
 C:\Users\User1\Desktop\New folder\EHCmed\Read_Write_App\Read_Write_App\bin\Debug\ConsoleWriter.pdb
 C:\Users\User1\Desktop\New folder\EHCmed\Read_Write_App\Read_Write_App\bin\Debug\pcsc-sharp.xml
 C:\Users\User1\Desktop\New folder\EHCmed\Read_Write_App\Read_Write_App\obj\Debug\Read_Write_App.MainV2.resources
+C:\Users\User1\Desktop\New folder\EHCmed\Read_Write_App\Read_Write_App\bin\Debug\EntityFramework.dll
+C:\Users\User1\Desktop\New folder\EHCmed\Read_Write_App\Read_Write_App\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\User1\Desktop\New folder\EHCmed\Read_Write_App\Read_Write_App\bin\Debug\System.Data.SQLite.dll
+C:\Users\User1\Desktop\New folder\EHCmed\Read_Write_App\Read_Write_App\bin\Debug\System.Data.SQLite.EF6.dll
+C:\Users\User1\Desktop\New folder\EHCmed\Read_Write_App\Read_Write_App\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\User1\Desktop\New folder\EHCmed\Read_Write_App\Read_Write_App\bin\Debug\EntityFramework.xml
+C:\Users\User1\Desktop\New folder\EHCmed\Read_Write_App\Read_Write_App\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\User1\Desktop\New folder\EHCmed\Read_Write_App\Read_Write_App\bin\Debug\System.Data.SQLite.xml

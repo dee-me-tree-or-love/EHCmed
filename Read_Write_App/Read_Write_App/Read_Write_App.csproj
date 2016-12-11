@@ -70,12 +70,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BackBone.cs" />
+    <Compile Include="DBHelper.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="GP.cs" />
     <Compile Include="MainV2.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -90,6 +92,7 @@
     </Compile>
     <Compile Include="MedTerms.cs" />
     <Compile Include="Patient.cs" />
+    <Compile Include="PersonalData.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
