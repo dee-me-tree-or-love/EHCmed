@@ -31,7 +31,7 @@ namespace ConsoleWriter
             Al.AddRange(sa);
 
             List<String>[] data = { Al, V, D, M };
-            Patient pat = new Patient(BloodTypes.ABN, data);
+            Patient pat = new Patient(BloodTypes.AN, data);
 
             byte[] byteData = Writing_AlgService.PrepareData(pat);
 
@@ -71,36 +71,40 @@ namespace ConsoleWriter
                             throw new Exception("AUTHENTICATE failed.");
                         }
 
-                        //card.UpdateCard(byteData, KeyType.KeyA, 0x00);
+                        card.UpdateCard(byteData, KeyType.KeyA, 0x00);
 
-                        authSuccessful = card.Authenticate(MSB, 0x0B, KeyType.KeyA, 0x00);
-                        if (!authSuccessful)
-                        {
-                            throw new Exception("AUTHENTICATE failed.");
-                        }
-                        var result = card.ReadBinary(MSB, 0x0B, 16);
-                        Console.WriteLine("Result (before BINARY UPDATE): {0}",
-                            (result != null)
-                                ? BitConverter.ToString(result)
-                                : null);
+                        Console.ReadKey();
 
-                        var updateSuccessful = card.UpdateBinary(MSB, 0x0B, DATA_TO_WRITE);
+                        card.ReadCard();
+                        //authSuccessful = card.Authenticate(MSB, 0x0B, KeyType.KeyA, 0x00);
+                        //if (!authSuccessful)
+                        //{
+                        //    throw new Exception("AUTHENTICATE failed.");
+                        //}
+                        //var result = card.ReadBinary(MSB, 0x0B, 16);
+                        //Console.WriteLine("Result (before BINARY UPDATE): {0}",
+                        //    (result != null)
+                        //        ? BitConverter.ToString(result)
+                        //        : null);
 
-                        if (!updateSuccessful)
-                        {
-                            throw new Exception("UPDATE BINARY failed.");
-                        }
+                        //var updateSuccessful = card.UpdateBinary(MSB, 0x0B, DATA_TO_WRITE);
 
-                        result = card.ReadBinary(MSB, 0x0B, 16);
-                        Console.WriteLine("Result (after BINARY UPDATE): {0}",
-                            (result != null)
-                                ? BitConverter.ToString(result)
-                                : null);
+                        //if (!updateSuccessful)
+                        //{
+                        //    throw new Exception("UPDATE BINARY failed.");
+                        //}
+
+                        //result = card.ReadBinary(MSB, 0x0B, 16);
+                        //Console.WriteLine("Result (after BINARY UPDATE): {0}",
+                        //    (result != null)
+                        //        ? BitConverter.ToString(result)
+                        //        : null);
                         Console.ReadLine();
                     }
                 }catch(Exception e)
                 {
                     Console.WriteLine("Critical!: error occured: " + e.Message);
+                    Console.ReadLine();
                 }
                 
 

@@ -122,7 +122,7 @@ def run():
     print(str(dataArray))
     longpar = ""
     for block in dataArray:
-        if (sum(block) != 77272727272727270):
+        if (sum(block) != 0):
             for bb in block:
                 longpar+=(hex(bb)[2:])
 
@@ -132,7 +132,11 @@ def run():
 
     # rrr = ''.join(hex(ord(x))[2:] for x in 'Hello World!')
     # print(rrr)
-    k = binascii.unhexlify(longpar.lstrip("0"))
+    # longpar = longpar.lstrip("0")
+    longpar = longpar.rstrip("0")
+    # if(longpar.length)
+    len(longpar)
+    k = binascii.unhexlify(longpar)
     print(k)
     #k = bytearray.fromhex(longpar).decode()
 # 1,2,3 GOOOOOOOOO!
