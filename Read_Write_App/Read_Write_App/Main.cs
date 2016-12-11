@@ -59,7 +59,7 @@ namespace Read_Write_App
             {
                 List<DAndRSubCat> tempList = new List<DAndRSubCat>();
                 MedTerms.DandRCategorization.TryGetValue(cat, out tempList);
-                foreach(DAndRSubCat sc in tempList)
+                foreach (DAndRSubCat sc in tempList)
                 {
                     this.cbDandRSubCat.Items.Add(sc.ToString());
                 }
@@ -68,9 +68,9 @@ namespace Read_Write_App
             {
 
             }
-                
 
-            
+
+
         }
 
         private void cbDandRSubCat_SelectedIndexChanged(object sender, EventArgs e)
@@ -88,16 +88,25 @@ namespace Read_Write_App
         /// <param name="e"></param>
         private void button4_Click(object sender, EventArgs e)
         {
+            lbAllergies.Items.Clear();
+            lbDiseases.Items.Clear();
+            lbVaccines.Items.Clear();
+            lbMedHistory.Items.Clear();
             try
             {
                 ConsoleWriter.Patient pd = ConsoleWriter.CardManager.ReadFromCard();
-                MessageBox.Show(pd.ToString());
+                MessageBox.Show("You have a new patient!\n" + pd.ToString());
+                lbAllergies.Items.AddRange(pd.Allergies.ToArray());
+                lbDiseases.Items.AddRange(pd.Diseases.ToArray());
+                lbVaccines.Items.AddRange(pd.Vacinnes.ToArray());
+                lbMedHistory.Items.AddRange(pd.Medication.ToArray());
+                cbBloodGroup.SelectedItem = this.BloodTypesDict.FirstOrDefault(x => x.Value == pd.BloodType).Key;
             }
             catch
             {
                 MessageBox.Show("Fuck");
             }
-            
+
         }
 
         /// <summary>

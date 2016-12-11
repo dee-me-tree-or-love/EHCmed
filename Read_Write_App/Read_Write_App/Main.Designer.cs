@@ -41,10 +41,10 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.listBox4 = new System.Windows.Forms.ListBox();
-            this.listBox3 = new System.Windows.Forms.ListBox();
-            this.listBox2 = new System.Windows.Forms.ListBox();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.lbMedHistory = new System.Windows.Forms.ListBox();
+            this.lbDiseases = new System.Windows.Forms.ListBox();
+            this.lbAllergies = new System.Windows.Forms.ListBox();
+            this.lbVaccines = new System.Windows.Forms.ListBox();
             this.cbBloodGroup = new System.Windows.Forms.ComboBox();
             this.gbDandR = new System.Windows.Forms.GroupBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -126,10 +126,10 @@
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.listBox4);
-            this.groupBox1.Controls.Add(this.listBox3);
-            this.groupBox1.Controls.Add(this.listBox2);
-            this.groupBox1.Controls.Add(this.listBox1);
+            this.groupBox1.Controls.Add(this.lbMedHistory);
+            this.groupBox1.Controls.Add(this.lbDiseases);
+            this.groupBox1.Controls.Add(this.lbAllergies);
+            this.groupBox1.Controls.Add(this.lbVaccines);
             this.groupBox1.Controls.Add(this.cbBloodGroup);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.groupBox1.ForeColor = System.Drawing.SystemColors.Window;
@@ -243,45 +243,45 @@
             this.label3.TabIndex = 5;
             this.label3.Text = "Last Card Update:";
             // 
-            // listBox4
+            // lbMedHistory
             // 
-            this.listBox4.FormattingEnabled = true;
-            this.listBox4.ItemHeight = 16;
-            this.listBox4.Location = new System.Drawing.Point(384, 247);
-            this.listBox4.Margin = new System.Windows.Forms.Padding(2);
-            this.listBox4.Name = "listBox4";
-            this.listBox4.Size = new System.Drawing.Size(158, 84);
-            this.listBox4.TabIndex = 4;
+            this.lbMedHistory.FormattingEnabled = true;
+            this.lbMedHistory.ItemHeight = 16;
+            this.lbMedHistory.Location = new System.Drawing.Point(384, 247);
+            this.lbMedHistory.Margin = new System.Windows.Forms.Padding(2);
+            this.lbMedHistory.Name = "lbMedHistory";
+            this.lbMedHistory.Size = new System.Drawing.Size(158, 84);
+            this.lbMedHistory.TabIndex = 4;
             // 
-            // listBox3
+            // lbDiseases
             // 
-            this.listBox3.FormattingEnabled = true;
-            this.listBox3.ItemHeight = 16;
-            this.listBox3.Location = new System.Drawing.Point(121, 151);
-            this.listBox3.Margin = new System.Windows.Forms.Padding(2);
-            this.listBox3.Name = "listBox3";
-            this.listBox3.Size = new System.Drawing.Size(158, 84);
-            this.listBox3.TabIndex = 3;
+            this.lbDiseases.FormattingEnabled = true;
+            this.lbDiseases.ItemHeight = 16;
+            this.lbDiseases.Location = new System.Drawing.Point(121, 151);
+            this.lbDiseases.Margin = new System.Windows.Forms.Padding(2);
+            this.lbDiseases.Name = "lbDiseases";
+            this.lbDiseases.Size = new System.Drawing.Size(158, 84);
+            this.lbDiseases.TabIndex = 3;
             // 
-            // listBox2
+            // lbAllergies
             // 
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.ItemHeight = 16;
-            this.listBox2.Location = new System.Drawing.Point(384, 151);
-            this.listBox2.Margin = new System.Windows.Forms.Padding(2);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(158, 84);
-            this.listBox2.TabIndex = 2;
+            this.lbAllergies.FormattingEnabled = true;
+            this.lbAllergies.ItemHeight = 16;
+            this.lbAllergies.Location = new System.Drawing.Point(384, 151);
+            this.lbAllergies.Margin = new System.Windows.Forms.Padding(2);
+            this.lbAllergies.Name = "lbAllergies";
+            this.lbAllergies.Size = new System.Drawing.Size(158, 84);
+            this.lbAllergies.TabIndex = 2;
             // 
-            // listBox1
+            // lbVaccines
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 16;
-            this.listBox1.Location = new System.Drawing.Point(121, 247);
-            this.listBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(158, 84);
-            this.listBox1.TabIndex = 1;
+            this.lbVaccines.FormattingEnabled = true;
+            this.lbVaccines.ItemHeight = 16;
+            this.lbVaccines.Location = new System.Drawing.Point(121, 247);
+            this.lbVaccines.Margin = new System.Windows.Forms.Padding(2);
+            this.lbVaccines.Name = "lbVaccines";
+            this.lbVaccines.Size = new System.Drawing.Size(158, 84);
+            this.lbVaccines.TabIndex = 1;
             // 
             // cbBloodGroup
             // 
@@ -514,6 +514,7 @@
             this.button5.TabIndex = 21;
             this.button5.Text = "Remove Selected";
             this.button5.UseVisualStyleBackColor = false;
+            this.button5.Visible = false;
             // 
             // Main
             // 
@@ -553,10 +554,10 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ListBox listBox4;
-        private System.Windows.Forms.ListBox listBox3;
-        private System.Windows.Forms.ListBox listBox2;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox lbMedHistory;
+        private System.Windows.Forms.ListBox lbDiseases;
+        private System.Windows.Forms.ListBox lbAllergies;
+        private System.Windows.Forms.ListBox lbVaccines;
         private System.Windows.Forms.ComboBox cbBloodGroup;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label8;
