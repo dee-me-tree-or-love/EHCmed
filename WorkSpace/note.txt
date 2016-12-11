@@ -1,0 +1,179 @@
+/// <summary>
+        /// Gets an array of bytes and decodes the blood type value based on it
+        /// </summary>
+        /// <param name="BTbytes"></param>
+        /// <returns></returns>
+        public static BloodTypes GetBloodType(byte[] BTbytes)
+        {
+            byte[] BTpartOfArray = { BTbytes[0], BTbytes[1] };
+            string hexString = HexStringConverter.ByteArrayToString(BTpartOfArray);
+            if (hexString.Substring(0, 2) == "42")
+            {
+                
+                var bloodTypeNr = Int32.Parse(hexString.Substring(2, 2), System.Globalization.NumberStyles.HexNumber);
+                //int.TryParse(hexString.Substring(2, 2), out bloodTypeNr);
+
+                BloodTypes BT = (BloodTypes)bloodTypeNr;
+                return BT;
+            }
+            else
+            {
+                return BloodTypes.NOT_DEFINED;
+            }
+        }
+
+        public static void ParseDataPack(string DPString, Patient pat)
+        {
+            DPString = DPString.ToUpper();
+
+            List<string> Allergies = new List<string>();
+            List<string> Deseases = new List<string>(); 
+            List<string> Vaccines = new List<string>(); 
+            List<string> Medication = new List<string>();
+
+            char valCategory = '\0';
+
+            string nrAlphabet = "0123456789";
+
+            // shows whether it's already reacording a value
+            bool recordingValue = false;
+            string IDval = "";
+
+            string HIID = "";
+
+            int curState = 0;
+            for(int i=0;i< DPString.Length;i++) // each character
+            {
+                char inputChar = DPString[i];
+                if (curState==0)
+                {
+                    // you have 2 options:
+                    // read B and go into ignore state
+                    // read anything else and go into data creation state
+                    switch (inputChar)
+                    {
+                        case 'B':
+                            curState = 1;//ignore state
+                            break;
+                        case 'A':
+                            curState = 2;//await new chunk or read the id
+                            Allergies = new List<string>();
+                            valCategory = 'A';
+                            // start recording
+                            //start reading allergies
+                            break;
+                        case 'D':
+                            curState = 2;//await new chunk or read the id
+                            // start recording
+                            Deseases = new List<string>();
+                            valCategory = 'D';
+                            //start reading deseases
+                            break;
+                        case 'V':
+                            curState = 2;//await new chunk or read the id
+                            // start recording
+                            Vaccines = new List<string>();
+                            valCategory = 'V';
+                            //start reading vaccines
+                            break;
+                        case 'M':
+                            curState = 2;//await new chunk or read the id
+                            // start recording
+                            Medication = new List<string>();
+                            valCategory = 'M';
+                            //start reading medication
+                            break;
+                        case 'H':
+                            curState = 2;//await new chunk or read the id
+                            valCategory = 'H';
+                            //start reading medication
+                            break;
+                    }
+                    //break; // new i
+                }
+                else if(curState==1)
+                {
+                    // the ignore state
+                    if(inputChar=='>')
+                    {
+                        curState = 0;
+                    }
+                }else if(curState ==2) //recording
+                {
+                    switch(inputChar)
+                    {
+                        case '#':
+                            // new value]
+                            recordingValue = true;
+                            // if it recorded something good, add it to the list
+                            if(IDval != "")
+                            {
+                                switch(valCategory)
+                                {
+                                    case 'A':
+                                        Allergies.Add(IDval);
+                                        break;
+                                    case 'D':
+                                        Deseases.Add(IDval);
+                                        break;
+                                    case 'V':
+                                        Vaccines.Add(IDval);
+                                        break;
+                                    case 'M':
+                                        Medication.Add(IDval);
+                                        break;
+                                    case 'H':
+                                        HIID = IDval;
+                                        break;
+                                }
+                                
+                            }
+                            IDval = "";
+                            //curState = 3;
+                            break;
+                        case '>':
+                            // stop recording the block
+                            curState = 0;
+                            recordingValue = false;
+                            // if it recorded something good, add it to the list
+                            if (IDval != "")
+                            {
+                                switch (valCategory)
+                                {
+                                    case 'A':
+                                        Allergies.Add(IDval);
+                                        break;
+                                    case 'D':
+                                        Deseases.Add(IDval);
+                                        break;
+                                    case 'V':
+                                        Vaccines.Add(IDval);
+                                        break;
+                                    case 'M':
+                                        Medication.Add(IDval);
+                                        break;
+                                    case 'H':
+                                        HIID = IDval;
+                                        break;
+                                }
+
+                            }
+                            valCategory = '\0';
+
+                            IDval = "";
+                            break;
+                        default:
+                            //if (recordingValue && nrAlphabet.Contains(inputChar)) // if is recording and the input character is a number
+                            if (recordingValue)
+                            { IDval += inputChar; } //add it to the value
+                            break;
+                    }
+                }
+            }
+            Console.WriteLine("Number of \n\tAllergies: {0}\n\tDiseases: {1}\n\tVaccines: {2}\n\tMedication: {3}",Allergies.Count,Deseases.Count,Vaccines.Count,Medication.Count);
+            List<string>[] temp = new List<string>[] { Allergies, Deseases, Vaccines, Medication };
+
+            pat.recreateDataFile(temp);
+            pat.HealthInsuranceId = HIID;
+            Console.WriteLine(pat.HealthInsuranceId);
+        }

@@ -4,7 +4,7 @@ from smartcard.ATR import ATR
 from smartcard.CardType import AnyCardType
 import binascii
 import sys
-
+from medDataManagement import *
 
 class PatFile:
     def __init__(self):
@@ -173,9 +173,12 @@ def retrieveFromCard():
     #longpar = longpar.rstrip("0")
     # if(longpar.length)
     k ={}
-    if(len(longpar)&1)==1:
+    if(longpar[3]+longpar[4])=='3e':
         btSection = longpar[:3]
-        k = binascii.unhexlify(longpar[3:])
+        temper = longpar[3:]
+
+        k = binascii.unhexlify(longpar[3:]+'0')
+
     else:
         btSection = longpar[:4]
         k=binascii.unhexlify(longpar[4:])
@@ -192,12 +195,25 @@ def run():
     loadedPat = PatFile()
     data = retrieveFromCard()
     loadedPat.bt = data[0]
-    parseMedData(data[1],loadedPat)
+    loadedPat = parseMedData(data[1],loadedPat)
 
-
+    print("--------------|||--------------")
+    print("Info for patient with Health Insurance: " + str(loadedPat.hiid))
+    print("Blood Group: " + loadedPat.bt)
+    print("Allergies:")
     for a in loadedPat.alerg:
-        print(a)
+        print(str(a)+": "+str(getName('a',a)))
+    print("Diseases:")
+    for a in loadedPat.dis:
+        print(str(a)+": "+str(getName('d',a)))
+    print("Vaccines taken:")
+    for a in loadedPat.vac:
+        print(str(a)+": "+str(getName('v',a)))
+    print("Prescribed medicaments: ")
+    for a in loadedPat.med:
+        print(str(a)+": "+str(getName('m',a)))
 
+    return loadedPat
 
 if __name__ == "__main__":
     run()
