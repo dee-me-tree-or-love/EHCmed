@@ -9,6 +9,147 @@ using PCSC.Iso7816;
 
 namespace ConsoleWriter
 {
+
+    public static class CardManager
+    {
+        static private byte[] Key = new byte[] { 0xD3, 0xF7, 0xD3, 0xF7, 0xD3, 0xF7 };
+        //public CardWriter()
+        //{
+        //    var contextFactory = ContextFactory.Instance;
+        //    using (var context = contextFactory.Establish(SCardScope.System))
+        //    {
+        //        string[] readerNames = context.GetReaders();
+        //        var readerName = readerNames[0];
+        //        try
+        //        {
+        //            using (var isoReader = new IsoReader(context, readerName, SCardShareMode.Shared, SCardProtocol.Any, false))
+        //            {
+        //                var card = new MifareCard(isoReader);
+
+        //                var loadKeySuccessful = card.LoadKey(
+        //                    KeyStructure.NonVolatileMemory,
+        //                    0x00, // first key slot
+        //                    new byte[] { 0xD3, 0xF7, 0xD3, 0xF7, 0xD3, 0xF7 } // key
+        //                );
+        //            }
+        //        }
+        //        catch
+        //        {
+        //            Console.WriteLine("smthng went wrong");
+        //        }
+        //    }
+        //}
+        //public MifareCard Card { get; set; }
+
+        static public bool OverwriteCard(Patient pat)
+        {
+            var contextFactory = ContextFactory.Instance;
+            using (var context = contextFactory.Establish(SCardScope.System))
+            {
+                var readerNames = context.GetReaders();
+                var readerName = readerNames[0];
+                try
+                {
+                    using (var isoReader = new IsoReader(context, readerName, SCardShareMode.Shared, SCardProtocol.Any, false))
+                    {
+                        var card = new MifareCard(isoReader);
+
+                        var loadKeySuccessful = card.LoadKey(
+                            KeyStructure.NonVolatileMemory,
+                            0x00, // first key slot
+                            new byte[] { 0xD3, 0xF7, 0xD3, 0xF7, 0xD3, 0xF7 } // key
+                        );
+
+                        if (!loadKeySuccessful)
+                        {
+                            throw new Exception("LOAD KEY failed.");
+                        }
+                        ////alaAPDU = {FF 86 00 00 05 01 00 04 60 00}
+                        //var authSuccessful = card.Authenticate(MSB, LSB, KeyType.KeyA, 0x00);
+                        //if (!authSuccessful)
+                        //{
+                        //    throw new Exception("AUTHENTICATE failed.");
+                        //}
+                        byte[] byteData = WritingAlgService.PrepareData(pat);
+                        return card.UpdateCard(byteData, KeyType.KeyA, 0x00);
+                    }
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+        }
+
+        static private void CardDataParser(string HexString)
+        {
+            for(int i=0;i<HexString.Length;i++)
+            {
+                switch(HexString[i])
+                {
+                    case 'd':
+                        break;
+                }
+            }
+        }
+
+
+        static public Patient ReadFromCard()
+        {
+            var contextFactory = ContextFactory.Instance;
+            using (var context = contextFactory.Establish(SCardScope.System))
+            {
+                var readerNames = context.GetReaders();
+                var readerName = readerNames[0];
+                try
+                {
+                    using (var isoReader = new IsoReader(context, readerName, SCardShareMode.Shared, SCardProtocol.Any, false))
+                    {
+                        var card = new MifareCard(isoReader);
+
+                        var loadKeySuccessful = card.LoadKey(
+                            KeyStructure.NonVolatileMemory,
+                            0x00, // first key slot
+                            new byte[] { 0xD3, 0xF7, 0xD3, 0xF7, 0xD3, 0xF7 } // key
+                        );
+
+                        if (!loadKeySuccessful)
+                        {
+                            throw new Exception("LOAD KEY failed.");
+                        }
+
+                        string longHexString;
+                        byte[] res = card.ReadCard(out longHexString);
+                        Console.WriteLine(HexStringConverter.ByteArrayToString(res));
+
+                        Console.WriteLine("Patient's blood type: " + MedInfoDecoder.GetBloodType(res));
+
+                        Console.WriteLine("Hex String: "+HexStringConverter.HexStringToCharText(longHexString));
+
+
+                        //Console.WriteLine("Patient's blood type: " + MedInfoDecoder.GetBloodType(res));
+                        string charTextHexString = HexStringConverter.HexStringToCharText(longHexString);
+                        Console.WriteLine(charTextHexString);
+
+                        Patient P = new Patient();
+                        BloodTypes BT = MedInfoDecoder.GetBloodType(res);
+                        P.BloodType = BT;
+                        MedInfoDecoder.ParseDataPack(charTextHexString, P);
+
+                        return P;
+                    }
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+
+
+        }
+    }
+
+
     class Program
     {
 
@@ -27,13 +168,14 @@ namespace ConsoleWriter
             List<String> V = new List<string>();
             List<String> D = new List<string>();
             List<String> M = new List<string>();
-            string[] sa = { "#123", "#54", "#16","#32", "#32", "#32", "#32" };
-            Al.AddRange(sa);
-
+            string[] sa = { "123", "54", "16","32", "32", "32", "32" };
+            string[] sm = { "123", "54", "16"};
+            Al.AddRange(sa); // testing
+            M.AddRange(sm); // testing
             List<String>[] data = { Al, V, D, M };
             Patient pat = new Patient(BloodTypes.AN, data);
 
-            byte[] byteData = Writing_AlgService.PrepareData(pat);
+            byte[] byteData = WritingAlgService.PrepareData(pat);
 
             Console.ReadLine();
             var contextFactory = ContextFactory.Instance;
@@ -74,8 +216,18 @@ namespace ConsoleWriter
                         card.UpdateCard(byteData, KeyType.KeyA, 0x00);
 
                         Console.ReadKey();
+                        string longHexString;
+                        byte[] res = card.ReadCard(out longHexString);                
+                        Console.WriteLine(HexStringConverter.ByteArrayToString(res));
+                        BloodTypes BT = MedInfoDecoder.GetBloodType(res);
+                        Console.WriteLine("Patient's blood type: " + BT);
+                        string charTextHexString = HexStringConverter.HexStringToCharText(longHexString);
+                        Console.WriteLine(charTextHexString);
 
-                        card.ReadCard();
+                        Patient P = new Patient();
+                        P.BloodType = BT;
+                        MedInfoDecoder.ParseDataPack(charTextHexString,P);
+                        //Console.WriteLine(P);
                         //authSuccessful = card.Authenticate(MSB, 0x0B, KeyType.KeyA, 0x00);
                         //if (!authSuccessful)
                         //{

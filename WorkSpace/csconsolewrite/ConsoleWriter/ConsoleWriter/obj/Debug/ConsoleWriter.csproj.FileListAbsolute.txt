@@ -3,6 +3,14 @@ D:\Projects\EHCmed\WorkSpace\csconsolewrite\ConsoleWriter\ConsoleWriter\bin\Debu
 D:\Projects\EHCmed\WorkSpace\csconsolewrite\ConsoleWriter\ConsoleWriter\bin\Debug\ConsoleWriter.pdb
 D:\Projects\EHCmed\WorkSpace\csconsolewrite\ConsoleWriter\ConsoleWriter\bin\Debug\pcsc-sharp.dll
 D:\Projects\EHCmed\WorkSpace\csconsolewrite\ConsoleWriter\ConsoleWriter\bin\Debug\pcsc-sharp.xml
-D:\Projects\EHCmed\WorkSpace\csconsolewrite\ConsoleWriter\ConsoleWriter\obj\Debug\ConsoleWriter.csprojResolveAssemblyReference.cache
 D:\Projects\EHCmed\WorkSpace\csconsolewrite\ConsoleWriter\ConsoleWriter\obj\Debug\ConsoleWriter.exe
 D:\Projects\EHCmed\WorkSpace\csconsolewrite\ConsoleWriter\ConsoleWriter\obj\Debug\ConsoleWriter.pdb
+D:\Projects\EHCmed\WorkSpace\csconsolewrite\ConsoleWriter\ConsoleWriter\obj\Debug\ConsoleWriter.csprojResolveAssemblyReference.cache
+C:\Users\User1\Desktop\New folder\EHCmed\WorkSpace\csconsolewrite\ConsoleWriter\ConsoleWriter\bin\Debug\ConsoleWriter.exe.config
+C:\Users\User1\Desktop\New folder\EHCmed\WorkSpace\csconsolewrite\ConsoleWriter\ConsoleWriter\bin\Debug\ConsoleWriter.exe
+C:\Users\User1\Desktop\New folder\EHCmed\WorkSpace\csconsolewrite\ConsoleWriter\ConsoleWriter\bin\Debug\ConsoleWriter.pdb
+C:\Users\User1\Desktop\New folder\EHCmed\WorkSpace\csconsolewrite\ConsoleWriter\ConsoleWriter\bin\Debug\pcsc-sharp.dll
+C:\Users\User1\Desktop\New folder\EHCmed\WorkSpace\csconsolewrite\ConsoleWriter\ConsoleWriter\bin\Debug\pcsc-sharp.xml
+C:\Users\User1\Desktop\New folder\EHCmed\WorkSpace\csconsolewrite\ConsoleWriter\ConsoleWriter\obj\Debug\ConsoleWriter.csprojResolveAssemblyReference.cache
+C:\Users\User1\Desktop\New folder\EHCmed\WorkSpace\csconsolewrite\ConsoleWriter\ConsoleWriter\obj\Debug\ConsoleWriter.exe
+C:\Users\User1\Desktop\New folder\EHCmed\WorkSpace\csconsolewrite\ConsoleWriter\ConsoleWriter\obj\Debug\ConsoleWriter.pdb

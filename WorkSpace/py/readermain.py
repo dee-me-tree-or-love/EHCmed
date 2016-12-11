@@ -3,50 +3,62 @@ from smartcard.util import toHexString
 from smartcard.ATR import ATR
 from smartcard.CardType import AnyCardType
 import binascii
-
 import sys
 
 
+class PatFile:
+    def __init__(self):
+        self.alerg = {}
+        self.vac = {}
+        self.dis = {}
+        self.med = {}
+        self.bt = ''
+        self.hiid = ''
 
-#to do, starting the script with algorithms
-#detect command "start"
-
-r = readers()
-if len(r) < 1:
-    print("error: No readers available")
-    sys.exit()
-
-print("Available readers: ", r)
-# specified reader to be used
-reader = r[0]
-print ("Using: ", reader)
-
-connection = reader.createConnection()
-connection.connect()
-
+bloodgroups = {
+        '1':'OP', '3':'ON',
+        '7':'AP','f':'AN',
+        '1f':'BP','3f':'BN',
+        '7f':'ABP','ff':'ABN'
+}
 
 
-
-#load key
-COMMAND = [0xFF, 0x82, 0x00, 0x00, 0x06]
-# the key hardcoded for the temporary use
-key = [0xD3, 0xF7, 0xD3, 0xF7, 0xD3, 0xF7]
-# for i in range(6):
-#     key[i] = int(key[i], 16)
-COMMAND.extend(key)
-
-
-#loading the key
-data, sw1, sw2 = connection.transmit(COMMAND)
-print("Status words: {0} {1}".format(sw1, sw2))
-if (sw1, sw2) == (0x90, 0x0):
-    print("KeyLoad: Key is loaded successfully to " + str(r[0]) + "key #0.")
-elif (sw1, sw2) == (0x63, 0x0):
-    print("KeyLoad: Failed to load key.")
 
 
 #read all the data from the data blocks in binary
 def readCycleInto():
+    # to do, starting the script with algorithms
+    # detect command "start"
+
+    r = readers()
+    if len(r) < 1:
+        print("error: No readers available")
+        sys.exit()
+
+    print("Available readers: ", r)
+    # specified reader to be used
+    reader = r[0]
+    print("Using: ", reader)
+
+    connection = reader.createConnection()
+    connection.connect()
+
+    # load key
+    COMMAND = [0xFF, 0x82, 0x00, 0x00, 0x06]
+    # the key hardcoded for the temporary use
+    key = [0xD3, 0xF7, 0xD3, 0xF7, 0xD3, 0xF7]
+    # for i in range(6):
+    #     key[i] = int(key[i], 16)
+    COMMAND.extend(key)
+
+    # loading the key
+    data, sw1, sw2 = connection.transmit(COMMAND)
+    print("Status words: {0} {1}".format(sw1, sw2))
+    if (sw1, sw2) == (0x90, 0x0):
+        print("KeyLoad: Key is loaded successfully to " + str(r[0]) + "key #0.")
+    elif (sw1, sw2) == (0x63, 0x0):
+        print("KeyLoad: Failed to load key.")
+
     data = []
     c_b = 4;
     while(c_b <= 15):
@@ -110,13 +122,38 @@ def readCycleInto():
     print("I am done")
     return data
 
-
-
-
-
+#parse med data and get the correct representation of it
+def parseMedData(data, loadedPat):
+    #data is a string
+    print(data)
+    print("splitting")
+    categories = {'A':{},'D':{},'V':{},'M':{},'H':{}}
+    sectionArray = {}
+    j=0
+    dataArray = str(data).split('>')
+    for i in dataArray:
+        print(i)# i is a line
+        if(i.__contains__('#')):
+            print("go")
+            k = str(i).split('#')
+            print(k.__len__())
+            if(k[0] == 'A'):
+                loadedPat.alerg = k[1:]
+            if (k[0] == 'D'):
+                loadedPat.dis = k[1:]
+            if (k[0] == 'V'):
+                loadedPat.vac = k[1:]
+            if (k[0] == 'M'):
+                loadedPat.med = k[1:]
+            if (k[0] == 'H'):
+                loadedPat.hiid = k[1:]
+    return loadedPat
 
 #what is starting the app to when running
-def run():
+
+
+
+def retrieveFromCard():
     # start cycling
     dataArray = readCycleInto()
     print(str(dataArray))
@@ -133,11 +170,34 @@ def run():
     # rrr = ''.join(hex(ord(x))[2:] for x in 'Hello World!')
     # print(rrr)
     # longpar = longpar.lstrip("0")
-    longpar = longpar.rstrip("0")
+    #longpar = longpar.rstrip("0")
     # if(longpar.length)
-    len(longpar)
-    k = binascii.unhexlify(longpar)
+    k ={}
+    if(len(longpar)&1)==1:
+        btSection = longpar[:3]
+        k = binascii.unhexlify(longpar[3:])
+    else:
+        btSection = longpar[:4]
+        k=binascii.unhexlify(longpar[4:])
     print(k)
+
+    print(bloodgroups[btSection[2:]])
+    return [bloodgroups[btSection[2:]],k]
+
     #k = bytearray.fromhex(longpar).decode()
 # 1,2,3 GOOOOOOOOO!
-run()
+
+def run():
+    #creating an instance of a file
+    loadedPat = PatFile()
+    data = retrieveFromCard()
+    loadedPat.bt = data[0]
+    parseMedData(data[1],loadedPat)
+
+
+    for a in loadedPat.alerg:
+        print(a)
+
+
+if __name__ == "__main__":
+    run()
