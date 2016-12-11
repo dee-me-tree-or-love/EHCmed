@@ -12,6 +12,9 @@ namespace Read_Write_App
 {
     public partial class Form1 : Form
     {
+        
+
+        //Border Management
         private const int WM_NCHITTEST = 0x84;
         private const int HTCLIENT = 0x1;
         private const int HTCAPTION = 0x2;
@@ -27,16 +30,25 @@ namespace Read_Write_App
                 message.Result = (IntPtr)HTCAPTION;
         }
 
+
+        DBHelper dbh;
+
         public Form1()
         {
 
             InitializeComponent();
+            dbh = new DBHelper();
+
+            dbh.connectToDatabase();
+            dbh.getGP(1);
 
             //transparent bground
             pictureBox2.Parent = pictureBox1;
             pictureBox2.BackColor = Color.Transparent;
             label1.Parent = pictureBox1;
             label1.BackColor = Color.Transparent;
+            label2.Parent = pictureBox1;
+            label2.BackColor = Color.Transparent;
 
             //password
             textBox2.PasswordChar = '*';
@@ -71,9 +83,18 @@ namespace Read_Write_App
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            Main ss = new Read_Write_App.Main();
-            ss.Show();
+            dbh.connectToDatabase();
+
+
+            if (dbh.authDoctor(textBox1.Text, textBox2.Text) > 0)
+            {
+                this.Hide();
+                Main ss = new Read_Write_App.Main(dbh.authDoctor(textBox1.Text, textBox2.Text));
+                ss.Show();
+            }
+            else label2.Visible=true;
+
+
         }
     }
 }

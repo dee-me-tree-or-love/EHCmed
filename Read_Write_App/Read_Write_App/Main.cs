@@ -24,10 +24,13 @@ namespace Read_Write_App
             {"O-", ConsoleWriter.BloodTypes.ON },
         };
 
+        private GP user;
+        private DBHelper dbh;
+        int gpid;
 
-
-        public Main()
+        public Main(int gpId)
         {
+            gpid = gpId;
             InitializeComponent();
 
             //transparent background
@@ -39,9 +42,21 @@ namespace Read_Write_App
             groupBox1.BackColor = Color.Transparent;
             gbDandR.Parent = pictureBox1;
             gbDandR.BackColor = Color.Transparent;
-
-
+            
+            
             this.cbBloodGroup.Items.AddRange(BloodTypesDict.Keys.ToArray());
+
+            dbh = new DBHelper();
+            dbh.connectToDatabase();
+            user = dbh.getGP(gpId);
+            label1.Text = "Welcome " + user.Name;
+
+            //get patients
+            List<PersonalData> patients = dbh.getGpPatients(gpId);
+            foreach(PersonalData p in patients)
+            {
+                comboBox1.Items.Add(p.Name);
+            }
         }
 
         private void Main_FormClosed(object sender, FormClosedEventArgs e)
@@ -78,6 +93,49 @@ namespace Read_Write_App
             // changes displayed data in the grid
             // when set enables the grid
             // to do - connect to database/or a certain list of stuff
+            if (cbDandRSubCat.SelectedIndex == 0 && cbDandRCat.SelectedIndex == 1)
+            {
+                listBox1.Items.Clear();
+                List<string> diseases = dbh.getAllDiseases();
+                foreach (string a in diseases)
+                {
+                    
+                    listBox1.Items.Add(a);
+                }
+            }
+
+            if (cbDandRSubCat.SelectedIndex == 0 && cbDandRCat.SelectedIndex == 0)
+            {
+                listBox1.Items.Clear();
+                List<string> diseases = dbh.getAllAllergies();
+                foreach (string a in diseases)
+                {
+                    
+                    listBox1.Items.Add(a);
+                }
+            }
+
+            if (cbDandRSubCat.SelectedIndex == 1 && cbDandRCat.SelectedIndex == 0)
+            {
+                listBox1.Items.Clear();
+                List<string> diseases = dbh.getAllVaccines();
+                foreach (string a in diseases)
+                {
+                    
+                    listBox1.Items.Add(a);
+                }
+            }
+            if (cbDandRSubCat.SelectedIndex == 1 && cbDandRCat.SelectedIndex == 1)
+            {
+                listBox1.Items.Clear();
+                List<string> diseases = dbh.getAllMeds();
+                foreach (string a in diseases)
+                {
+                    
+                    listBox1.Items.Add(a);
+                }
+            }
+
         }
 
 
@@ -116,7 +174,76 @@ namespace Read_Write_App
         /// <param name="e"></param>
         private void button3_Click(object sender, EventArgs e)
         {
+            if (cbDandRSubCat.SelectedIndex == 0 && cbDandRCat.SelectedIndex == 0 && listBox1.SelectedIndex != -1)
+            {
+                lbAllergies.Items.Add(listBox1.SelectedItem.ToString());
+            }
+            if (cbDandRSubCat.SelectedIndex == 0 && cbDandRCat.SelectedIndex == 1 && listBox1.SelectedIndex != -1)
+            {
+                lbDiseases.Items.Add(listBox1.SelectedItem.ToString());
+            }
+            if (cbDandRSubCat.SelectedIndex == 1 && cbDandRCat.SelectedIndex == 0 && listBox1.SelectedIndex != -1)
+            {
+                lbVaccines.Items.Add(listBox1.SelectedItem.ToString());
+            }
+            if (cbDandRSubCat.SelectedIndex == 1 && cbDandRCat.SelectedIndex == 1 && listBox1.SelectedIndex != -1)
+            {
+                lbMedHistory.Items.Add(listBox1.SelectedItem.ToString());
+            }
+        }
 
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            PersonalData patient = dbh.getDataFromName(comboBox1.Text);
+            textBox2.Text = patient.Name;
+            textBox3.Text = patient.Name;
+            cbBloodGroup.Text = patient.Blood_Group;
+            textBox4.Text = patient.DoB;
+            textBox1.Text = "12-05-1996";
+
+            lbAllergies.Items.Clear();
+            string al = patient.Allergies;
+            string[] allergies = al.Split('#');
+            foreach(string a in allergies)
+            {
+                if (a != "")
+                {
+
+                    lbAllergies.Items.Add(dbh.allergyToString(Convert.ToInt32(a)));
+                }
+            }
+
+            lbDiseases.Items.Clear();
+            string dis = patient.Diseases;
+            string[] disiases = dis.Split('#');
+            foreach (string a in disiases)
+            {
+                if (a != "")
+                    lbDiseases.Items.Add(dbh.diseaseToString(Convert.ToInt32(a)));
+            }
+
+            lbMedHistory.Items.Clear();
+            string med = patient.Medicines;
+            string[] meds = med.Split('#');
+            foreach (string a in meds)
+            {
+                if (a != "")
+                    lbMedHistory.Items.Add(dbh.medicineToString(Convert.ToInt32(a)));
+            }
+
+            lbVaccines.Items.Clear();
+            string vac = patient.Vaccines;
+            string[] vacs = vac.Split('#');
+            foreach (string a in vacs)
+            {
+                if (a != "")
+                   lbVaccines.Items.Add(dbh.vaccineToString(Convert.ToInt32(a))) ;
+            }
+        }
+
+        private void cbDandRSubCat_TextUpdate(object sender, EventArgs e)
+        {
+            
         }
     }
 }

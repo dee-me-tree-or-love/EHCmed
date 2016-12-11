@@ -9,8 +9,9 @@ namespace Read_Write_App
     class Patient
     {
         private ConsoleWriter.Patient CardPatData { set; get; }
-        public string FirstName;
-        public string LastName;
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+
 
 
     }
