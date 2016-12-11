@@ -1,0 +1,10 @@
+C:\Users\User1\Desktop\New folder\EHCmed\Read_Write_App\Read_Write_App\bin\Debug\Read_Write_App.exe.config
+C:\Users\User1\Desktop\New folder\EHCmed\Read_Write_App\Read_Write_App\bin\Debug\Read_Write_App.exe
+C:\Users\User1\Desktop\New folder\EHCmed\Read_Write_App\Read_Write_App\bin\Debug\Read_Write_App.pdb
+C:\Users\User1\Desktop\New folder\EHCmed\Read_Write_App\Read_Write_App\obj\Debug\Read_Write_App.Form1.resources
+C:\Users\User1\Desktop\New folder\EHCmed\Read_Write_App\Read_Write_App\obj\Debug\Read_Write_App.Properties.Resources.resources
+C:\Users\User1\Desktop\New folder\EHCmed\Read_Write_App\Read_Write_App\obj\Debug\Read_Write_App.csproj.GenerateResource.Cache
+C:\Users\User1\Desktop\New folder\EHCmed\Read_Write_App\Read_Write_App\obj\Debug\Read_Write_App.exe
+C:\Users\User1\Desktop\New folder\EHCmed\Read_Write_App\Read_Write_App\obj\Debug\Read_Write_App.pdb
+C:\Users\User1\Desktop\New folder\EHCmed\Read_Write_App\Read_Write_App\obj\Debug\Read_Write_App.Main.resources
+C:\Users\User1\Desktop\New folder\EHCmed\Read_Write_App\Read_Write_App\obj\Debug\Read_Write_App.csprojResolveAssemblyReference.cache

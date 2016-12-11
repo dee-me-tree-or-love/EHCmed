@@ -185,13 +185,51 @@ namespace ConsoleWriter
             return result;
         }
 
+        public string ReadCard()
+        {
+            
+            const byte P1 = 0x00; // signifies the P1 block part and is supposed to be zero
+            const int mappingIndex = 1; // signifies the second part of a mapping
+            // unaccessible blocks - 7th, 11th, 13th, 15th
+            int[,] lineToBlockNrMapping = new int[8, 2]
+                {
+                    { 0, 4 }, { 1, 5 }, { 2, 6 }, { 3, 8 }, { 4, 9 },
+                    { 5, 10 }, { 6, 12 }, { 7, 14 }
+                };
 
+            for (int l = 0; l<8; l++)
+            {
+                byte blockNr = (byte)lineToBlockNrMapping[l, mappingIndex];
+                Console.WriteLine("Authenticating block number: " + blockNr);
+                var authSuccessful = this.Authenticate(P1, blockNr, KeyType.KeyA, 0x00);
+                if (!authSuccessful)
+                {
+                    throw new Exception("AUTHENTICATE failed.");
+                }
+                //P1 - kept 0x00, lineNr ->maps-> blockNr, the data of the l'th datapack 
+                var data = this.ReadBinary(P1, blockNr, 16);
+                try
+                {
+                    Console.WriteLine(BitConverter.ToString(data));
+                }
+                catch
+                {
+                    Console.WriteLine("Couldn't read");
+                }
+                
+            }
+
+
+
+            return "";
+        }
 
 
 
         private static bool IsSuccess(Response response) =>
             (response.SW1 == (byte)SW1Code.Normal) && (response.SW2 == 0x00);
     }
+
 
     public class GeneralAuthenticate
     {
