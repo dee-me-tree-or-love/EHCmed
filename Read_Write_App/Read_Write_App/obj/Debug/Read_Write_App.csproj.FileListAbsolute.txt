@@ -23,3 +23,8 @@ D:\Projects\EHCmed\Read_Write_App\Read_Write_App\bin\Debug\ConsoleWriter.exe
 D:\Projects\EHCmed\Read_Write_App\Read_Write_App\bin\Debug\pcsc-sharp.dll
 D:\Projects\EHCmed\Read_Write_App\Read_Write_App\bin\Debug\ConsoleWriter.pdb
 D:\Projects\EHCmed\Read_Write_App\Read_Write_App\bin\Debug\pcsc-sharp.xml
+C:\Users\User1\Desktop\New folder\EHCmed\Read_Write_App\Read_Write_App\bin\Debug\ConsoleWriter.exe
+C:\Users\User1\Desktop\New folder\EHCmed\Read_Write_App\Read_Write_App\bin\Debug\pcsc-sharp.dll
+C:\Users\User1\Desktop\New folder\EHCmed\Read_Write_App\Read_Write_App\bin\Debug\ConsoleWriter.pdb
+C:\Users\User1\Desktop\New folder\EHCmed\Read_Write_App\Read_Write_App\bin\Debug\pcsc-sharp.xml
+C:\Users\User1\Desktop\New folder\EHCmed\Read_Write_App\Read_Write_App\obj\Debug\Read_Write_App.MainV2.resources
