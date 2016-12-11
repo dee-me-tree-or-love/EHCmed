@@ -3,6 +3,7 @@
 logs
 *.log
 npm-debug.log*
+Read_Write_App/.vs
 
 # Runtime data
 pids
