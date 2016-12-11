@@ -1,0 +1,21 @@
+doctype
+html
+ head
+  title Hello!
+ body
+   ul
+    li
+      a(href="/") Home
+    li
+      a(href="/about") About
+    if(currentUser)
+     span= currentUser.username
+     form(method="post" action="users/logout")   
+      input(type="submit" value="Logout") 
+    else
+     li
+       a(href="/users/register") Register
+     li
+       a(href="/users/login") Login
+   
+    block main
