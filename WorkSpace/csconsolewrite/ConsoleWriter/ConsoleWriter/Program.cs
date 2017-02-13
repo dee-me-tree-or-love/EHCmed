@@ -169,12 +169,14 @@ namespace ConsoleWriter
             List<String> D = new List<string>();
             List<String> M = new List<string>();
             //string[] sa = { "123", "54", "16","32", "32", "32", "32" };
-            string[] sa = { "2", "21", "16", "12", "5", "4", "10" };
-            string[] sm = { "1", "3", "10"};
+            string[] sa = { "2", "21", "16", "5", "13", "4", "3" };
+            string[] sm = { "1", "3", "10", "5"};
             string[] sd = { "3", "11", "28" };
+            string[] sv = { "2" };
             Al.AddRange(sa); // testing
             D.AddRange(sd);
-            M.AddRange(sm); // testing
+            M.AddRange(sm);
+            V.AddRange(sv);// testing
             List<String>[] data = { Al, V, D, M };
             Patient pat = new Patient(BloodTypes.AN, data);
 

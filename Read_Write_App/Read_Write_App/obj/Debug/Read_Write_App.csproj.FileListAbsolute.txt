@@ -36,3 +36,11 @@ C:\Users\User1\Desktop\New folder\EHCmed\Read_Write_App\Read_Write_App\bin\Debug
 C:\Users\User1\Desktop\New folder\EHCmed\Read_Write_App\Read_Write_App\bin\Debug\EntityFramework.xml
 C:\Users\User1\Desktop\New folder\EHCmed\Read_Write_App\Read_Write_App\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\User1\Desktop\New folder\EHCmed\Read_Write_App\Read_Write_App\bin\Debug\System.Data.SQLite.xml
+D:\Projects\EHCmed\Read_Write_App\Read_Write_App\bin\Debug\EntityFramework.dll
+D:\Projects\EHCmed\Read_Write_App\Read_Write_App\bin\Debug\EntityFramework.SqlServer.dll
+D:\Projects\EHCmed\Read_Write_App\Read_Write_App\bin\Debug\System.Data.SQLite.dll
+D:\Projects\EHCmed\Read_Write_App\Read_Write_App\bin\Debug\System.Data.SQLite.EF6.dll
+D:\Projects\EHCmed\Read_Write_App\Read_Write_App\bin\Debug\System.Data.SQLite.Linq.dll
+D:\Projects\EHCmed\Read_Write_App\Read_Write_App\bin\Debug\EntityFramework.xml
+D:\Projects\EHCmed\Read_Write_App\Read_Write_App\bin\Debug\EntityFramework.SqlServer.xml
+D:\Projects\EHCmed\Read_Write_App\Read_Write_App\bin\Debug\System.Data.SQLite.xml

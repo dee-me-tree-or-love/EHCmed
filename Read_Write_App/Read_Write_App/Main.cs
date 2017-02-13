@@ -153,7 +153,7 @@ namespace Read_Write_App
             try
             {
                 ConsoleWriter.Patient pd = ConsoleWriter.CardManager.ReadFromCard();
-                MessageBox.Show("You have a new patient!\n" + pd.ToString());
+                //MessageBox.Show("You have a new patient!\n" + pd.ToString());
                 lbAllergies.Items.AddRange(pd.Allergies.ToArray());
                 lbDiseases.Items.AddRange(pd.Diseases.ToArray());
                 lbVaccines.Items.AddRange(pd.Vacinnes.ToArray());
